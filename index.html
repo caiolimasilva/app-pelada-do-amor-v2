@@ -4,34 +4,55 @@
     <meta charset="UTF-8">
     <title>Súmula - Pelada do Amor</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f0f0f0; padding: 20px; }
-        .card { background: white; padding: 20px; border-radius: 8px; max-width: 400px; margin: auto; }
-        .input-group { margin-bottom: 15px; }
-        input { width: 100%; padding: 8px; box-sizing: border-box; }
+        body { font-family: sans-serif; background: #e0e0e0; padding: 20px; }
+        .card-sumula { background: white; padding: 25px; border-radius: 10px; max-width: 400px; margin: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .input-box { margin-bottom: 15px; }
+        input { width: 100%; padding: 10px; margin-top: 5px; box-sizing: border-box; }
         
-        /* BUG VISUAL INTENCIONAL: O botão tem a mesma cor do fundo, ferindo a usabilidade */
-        .btn-salvar { background-color: #f0f0f0; color: #f0f0f0; border: none; padding: 10px; width: 100%; cursor: pointer; }
+        /* DEFEITO DE USABILIDADE: O botão possui a mesma cor que a fonte */
+        .btn-salvar { background: #fff; color: #fff; border: 1px solid #ccc; padding: 10px; width: 100%; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h2>Súmula Oficial - Pelada do Amor</h2>
-        <p><strong>Data do Marco Histórico:</strong> 19/03/2025</p>
-        
-        <form>
-            <div class="input-group">
+
+    <div class="card-sumula">
+        <h2>Súmula - Pelada do Amor</h2>
+        <p><strong>Registro Histórico:</strong> 19/03/2025</p>
+
+        <form id="formEstatisticas">
+            <div class="input-box">
                 <label>Craque da Partida:</label>
                 <input type="text" value="Bobby Charlton" readonly>
             </div>
-            
-            <div class="input-group">
+            <div class="input-box">
                 <label>Gols Marcados:</label>
-                <!-- BUG LÓGICO INTENCIONAL: Aceita números negativos -->
-                <input type="number" id="gols" name="gols" min="-10">
+                <input type="number" id="gols" value="0" min="0">
             </div>
-            
-            <button type="button" class="btn-salvar">Salvar Estatísticas</button>
+            <div class="input-box">
+                <label>Assistências:</label>
+                <input type="number" id="assistencias" value="0" min="0">
+            </div>
+
+            <button type="button" class="btn-salvar" onclick="processarEstatisticas()">Salvar Atuação</button>
         </form>
+
+        <h3 id="resultado"></h3>
     </div>
+
+    <script>
+        function calcularPontuacao(gols, assistencias) {
+            // CAIXA BRANCA: Defeito lógico aqui (multiplicando em vez de somar)
+            let total = gols * assistencias; 
+            return total;
+        }
+
+        function processarEstatisticas() {
+            let g = parseInt(document.getElementById('gols').value);
+            let a = parseInt(document.getElementById('assistencias').value);
+            
+            let pontuacao = calcularPontuacao(g, a);
+            document.getElementById('resultado').innerText = "Pontuação Total: " + pontuacao;
+        }
+    </script>
 </body>
 </html>
